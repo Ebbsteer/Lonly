@@ -178,7 +178,7 @@
 		</div>
 	</div>
 
-	<div id="Week" class="hidden grid gap-2 p-4">
+	<div id="Week" class="grid gap-2 p-4">
 		<div class="bg-[#B08545] rounded-lg p-2 w-full text-center">Weekly Tasks</div>
 
 		<div class="bg-[#B08545] rounded-lg p-[4px]">
