@@ -1,61 +1,70 @@
 <script>
     import "../app.css";
 
-    const AddTask = () => {
+    let allPoints = 1;
+
+    let currentDateTime = new Date();
+    function getWeekDay() {
+        let daysList = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ];
+        return daysList[currentDateTime.getDay()];
+    }
+    
+    function getWeekDayColor () {
+        let daysList = [
+            "bg-orange-800",
+            "bg-teal-800",
+            "bg-sky-800",
+            "bg-indigo-800",
+            "bg-purple-700",
+            "bg-pink-800",
+            "bg-red-800"
+        ];
+        return daysList[currentDateTime.getDay()];
+    }
+    
+    const addTask = () => {
         const AddTask = document.getElementById("AddTask");
         AddTask.classList.toggle("hidden");
     }
 
-    const ToggleToday = () => {
-        const Today = document.getElementById("Today");
+    const toggleToday = () => {
+        const Today = document.getElementById(getWeekDay());
         Today.classList.toggle("hidden");
     }
 
-    const ToggleWeek = () => {
+    const toggleWeek = () => {
         const Week = document.getElementById("Week");
         Week.classList.toggle("hidden");
     }
 
-    const ToggleMonday = () => {
-        const Monday = document.getElementById("Monday");
-        Monday.classList.toggle("hidden");
+    const toggleDay = (day) => {
+        const element = document.getElementById(day);
+        element.classList.toggle("hidden");
     }
 
-    const ToggleTuesday = () => {
-        const Tuesday = document.getElementById("Tuesday");
-        Tuesday.classList.toggle("hidden");
-    }
+    const toggleMonday = () => toggleDay("Monday");
+    const toggleTuesday = () => toggleDay("Tuesday");
+    const toggleWednesday = () => toggleDay("Wednesday");
+    const toggleThursday = () => toggleDay("Thursday");
+    const toggleFriday = () => toggleDay("Friday");
+    const toggleSaturday = () => toggleDay("Saturday");
+    const toggleSunday = () => toggleDay("Sunday");
 
-    const ToggleWednesday = () => {
-        const Wednesday = document.getElementById("Wednesday");
-        Wednesday.classList.toggle("hidden");
-    }
-
-    const ToggleThursday = () => {
-        const Thursday = document.getElementById("Thursday");
-        Thursday.classList.toggle("hidden");
-    }
-
-    const ToggleFriday = () => {
-        const Friday = document.getElementById("Friday");
-        Friday.classList.toggle("hidden");
-    }
-
-    const ToggleSaturday = () => {
-        const Saturday = document.getElementById("Saturday");
-        Saturday.classList.toggle("hidden");
-    }
-
-    const ToggleSunday = () => {
-        const Sunday = document.getElementById("Sunday");
-        Sunday.classList.toggle("hidden");
-    }
 </script>
 
 <div class="w-full max-w-sm mx-auto bg-black text-sm">
     <!--Header -->
-    <div class="w-full h-14 grid place-items-center bg-[#380C47]">
-        <h1 class="text-[#130418] text-3xl font-mono font-extrabold">Lonly</h1>
+    <div class="w-full h-14 grid grid-cols-4 place-items-center bg-[#380C47] text-[#130418]">
+        <h1 class="col-span-3 text-3xl font-mono font-extrabold">Lonely</h1>
+        <h1 class="col-span-1 text-3xl font-mono font-extrabold">{allPoints}</h1>
     </div>
 
     <!--Content-->
@@ -63,17 +72,17 @@
 
         <!--Sidebar-->
         <div class="basis-[60px] w-12 h-[600px] bg-[#130418] pt-1 font-mono text-white">
-            <button on:click={ToggleToday} class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]">Today</button>
-            <button on:click={ToggleWeek} class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]">Week</button>
-            <button on:click={ToggleMonday} class="w-10 h-10 mx-auto my-2 bg-teal-800 rounded-lg font-extrabold grid place-items-center">M</button>
-            <button on:click={ToggleTuesday} class="w-10 h-10 mx-auto my-2 bg-sky-800 rounded-lg font-extrabold grid place-items-center">T</button>
-            <button on:click={ToggleWednesday} class="w-10 h-10 mx-auto my-2 bg-indigo-800 rounded-lg font-extrabold grid place-items-center">W</button>
-            <button on:click={ToggleThursday} class="w-10 h-10 mx-auto my-2 bg-purple-700 rounded-lg font-extrabold grid place-items-center">T</button>
-            <button on:click={ToggleFriday} class="w-10 h-10 mx-auto my-2 bg-pink-800 rounded-lg font-extrabold grid place-items-center">F</button>
-            <button on:click={ToggleSaturday} class="w-10 h-10 mx-auto my-2 bg-red-800 rounded-lg font-extrabold grid place-items-center">S</button>
-            <button on:click={ToggleSunday} class="w-10 h-10 mx-auto my-2 bg-orange-800 rounded-lg font-extrabold grid place-items-center">S</button>
+            <button on:click={toggleToday} class="w-10 h-10 mx-auto my-2 {getWeekDayColor()} rounded-lg grid place-items-center text-[12px]">Today</button>
+            <button on:click={toggleWeek} class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]">Week</button>
+            <button on:click={toggleMonday} class="w-10 h-10 mx-auto my-2 bg-teal-800 rounded-lg font-extrabold grid place-items-center">M</button>
+            <button on:click={toggleTuesday} class="w-10 h-10 mx-auto my-2 bg-sky-800 rounded-lg font-extrabold grid place-items-center">T</button>
+            <button on:click={toggleWednesday} class="w-10 h-10 mx-auto my-2 bg-indigo-800 rounded-lg font-extrabold grid place-items-center">W</button>
+            <button on:click={toggleThursday} class="w-10 h-10 mx-auto my-2 bg-purple-700 rounded-lg font-extrabold grid place-items-center">T</button>
+            <button on:click={toggleFriday} class="w-10 h-10 mx-auto my-2 bg-pink-800 rounded-lg font-extrabold grid place-items-center">F</button>
+            <button on:click={toggleSaturday} class="w-10 h-10 mx-auto my-2 bg-red-800 rounded-lg font-extrabold grid place-items-center">S</button>
+            <button on:click={toggleSunday} class="w-10 h-10 mx-auto my-2 bg-orange-800 rounded-lg font-extrabold grid place-items-center">S</button>
 
-            <button class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]" on:click={AddTask}>Add</button>
+            <button on:click={addTask} class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]">Add</button>
         </div>
 
         <!--Lists-->
