@@ -1,24 +1,36 @@
 <script>
 	import { tasks } from '$lib/store.js';
 
+	const toggleAddTask = () => {
+		const AddTask = document.getElementById('AddTask');
+		const HiddenAllTask = document.getElementById('AllTask');
+		if (!HiddenAllTask.classList.contains('hidden')){
+			AddTask.classList.toggle('hidden');
+		};
+		
+	};
+
 	let allPoints = 1;
+
+	let getAddColor = 'bg-stone-600';
+	let getWeekColor = 'bg-[#B08545]';
 
 	function getDayColor(day) {
 		switch (day) {
 			case 'Monday':
-				return 'teal-800';
+				return 'teal-700';
 			case 'Tuesday':
-				return 'sky-800';
+				return 'sky-700';
 			case 'Wednesday':
-				return 'indigo-800';
+				return 'indigo-700';
 			case 'Thursday':
-				return 'purple-700';
+				return 'purple-600';
 			case 'Friday':
-				return 'pink-800';
+				return 'pink-700';
 			case 'Saturday':
-				return 'red-800';
+				return 'red-700';
 			case 'Sunday':
-				return 'orange-800';
+				return 'orange-700';
 			default:
 				return '[#B08545]';
 		}
@@ -44,13 +56,19 @@
 				return 'text-[#B08545]';
 		}
 	}
+
+	
 </script>
 
 <div class="text-white font-mono font-normal">
-	<div id="AddTask" class="grid gap-2 p-4">
-		<div class="bg-[#B08545] rounded-lg p-2 w-full text-center">Add Task</div>
+	<div id="AllTask" class="grid gap-2 p-4">
+		<div class="grid grid-cols-4 {getAddColor} rounded-lg p-2 w-full text-center">
+			<button on:click={toggleAddTask} class="col-span-1 text-left text-xs">Add</button>
+			<span class="col-span-2">All Tasks</span>
+			<button class="col-span-1 text-right text-xs">Edit</button>
+		</div>
 
-		<div class="bg-[#B08545] rounded-lg p-[4px]">
+		<div id="AddTask" class="{getAddColor} hidden rounded-lg p-[4px]">
 			<div class="bg-black rounded-md p-[6px] grid gap-2">
 				<form
 					action="/"
@@ -62,52 +80,15 @@
 
 						tasks.update((tasks) => {
 							return {
-								Monday: [
+								allTasks: [
 									{
-										task: 'Task Name',
+										task: 'Task Name1',
 										points: 10,
 										completed: false
-									}
-								],
-								Tuesday: [
-									{
-										task: 'Task Name',
-										points: 10,
-										completed: false
-									}
-								],
-								Wednesday: [
+									},
 									{
 										task: 'Task Name2',
-										points: 10,
-										completed: false
-									}
-								],
-								Thursday: [
-									{
-										task: 'Task Name3',
-										points: 10,
-										completed: false
-									}
-								],
-								Friday: [
-									{
-										task: 'Task Name4',
-										points: 10,
-										completed: false
-									}
-								],
-								Saturday: [
-									{
-										task: 'Task Name5',
-										points: 10,
-										completed: false
-									}
-								],
-								Sunday: [
-									{
-										task: 'Task Name6',
-										points: 10,
+										points: 20,
 										completed: false
 									}
 								]
@@ -117,7 +98,7 @@
 						event.currentTarget.reset();
 					}}
 				>
-					<div class="bg-[#B08545] rounded-lg p-[6px] grid grid-cols-7 text-center text-[10px]">
+					<div class="{getAddColor} rounded-lg p-[6px] grid grid-cols-7 text-center text-[10px]">
 						<input
 							type="text"
 							name="task"
@@ -133,10 +114,9 @@
 							class="col-span-2 bg-transparent px-1 text-center text-xs"
 						/>
 
-						{#each ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as day}
-							<div class="flex flex-col items-center py-1">
-								<label for={day.toLowerCase()}
-									>{day}
+						{#each ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as day} 
+								<label for={day.toLowerCase()} class="grid grid-cols-1 place-items-center py-1">
+									<span class="">{day}</span>
 									<input
 										type="checkbox"
 										name={day.toLowerCase()}
@@ -144,7 +124,7 @@
 										class="peer relative appearance-none w-[16px] h-[16px] border rounded border-white border-opacity-70 transition-all checked:bg-white checked:bg-opacity-20 checked:border-white checked:border-opacity-50"
 									/>
 									<span
-										class="grid place-content-center mt-[-21px] pb-1 z-10 text-white transition-opacity opacity-0 peer-checked:opacity-100"
+										class="grid place-content-center mt-[-16px] z-10 text-white transition-opacity opacity-0 peer-checked:opacity-100"
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -160,11 +140,10 @@
 										</svg>
 									</span>
 								</label>
-							</div>
 						{/each}
 					</div>
 
-					<div class="bg-[#B08545] rounded-lg p-[6px] grid">
+					<div class="{getAddColor} rounded-lg p-[6px] grid">
 						<input
 							type="submit"
 							name="submit"
@@ -201,7 +180,7 @@
 
 			<div class={`bg-${getDayColor(day)} rounded-lg p-[4px]`}>
 				<div class="bg-black rounded-md p-[6px] grid gap-2">
-					{#each $tasks[day] ?? [] as task}
+					{#each $tasks['allTasks'] ?? [] as task}
 						<div class={`bg-${getDayColor(day)} rounded-lg p-[6px] grid grid-cols-8`}>
 							<label
 								class="relative grid place-content-start rounded-full"

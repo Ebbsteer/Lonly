@@ -11,20 +11,29 @@
 
 	function getWeekDayColor() {
 		let daysList = [
-			'bg-orange-800',
-			'bg-teal-800',
-			'bg-sky-800',
-			'bg-indigo-800',
-			'bg-purple-700',
-			'bg-pink-800',
-			'bg-red-800'
+			'bg-orange-700',
+			'bg-teal-700',
+			'bg-sky-700',
+			'bg-indigo-700',
+			'bg-purple-600',
+			'bg-pink-700',
+			'bg-red-700'
 		];
 		return daysList[currentDateTime.getDay()];
 	}
 
+	const toggleAllTask = () => {
+		const AllTask = document.getElementById('AllTask');
+		AllTask.classList.toggle('hidden');
+	};
+
 	const toggleAddTask = () => {
 		const AddTask = document.getElementById('AddTask');
-		AddTask.classList.toggle('hidden');
+		const HiddenAllTask = document.getElementById('AllTask');
+		if (!HiddenAllTask.classList.contains('hidden')){
+			AddTask.classList.toggle('hidden');
+		};
+		
 	};
 
 	const toggleToday = () => {
@@ -54,7 +63,8 @@
 <div class="w-screen max-w-md mx-auto min-h-screen bg-black text-sm">
 	<!--Header -->
 	<div class="w-full h-14 grid grid-cols-4 place-items-center bg-[#380C47] text-[#130418]">
-		<h1 class="col-span-3 text-3xl font-mono font-extrabold">Lonely</h1>
+		<div class="col-span-1 text-3xl font-mono font-extrabold"></div>
+		<h1 class="col-span-2 text-3xl font-mono font-extrabold">Lonely</h1>
 		<h1 class="col-span-1 text-3xl font-mono font-extrabold">{allPoints}</h1>
 	</div>
 
@@ -74,44 +84,44 @@
 			>
 			<button
 				on:click={toggleMonday}
-				class="w-10 h-10 mx-auto my-2 bg-teal-800 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-teal-700 rounded-lg font-extrabold grid place-items-center"
 				>M</button
 			>
 			<button
 				on:click={toggleTuesday}
-				class="w-10 h-10 mx-auto my-2 bg-sky-800 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-sky-700 rounded-lg font-extrabold grid place-items-center"
 				>T</button
 			>
 			<button
 				on:click={toggleWednesday}
-				class="w-10 h-10 mx-auto my-2 bg-indigo-800 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-indigo-700 rounded-lg font-extrabold grid place-items-center"
 				>W</button
 			>
 			<button
 				on:click={toggleThursday}
-				class="w-10 h-10 mx-auto my-2 bg-purple-700 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-purple-600 rounded-lg font-extrabold grid place-items-center"
 				>T</button
 			>
 			<button
 				on:click={toggleFriday}
-				class="w-10 h-10 mx-auto my-2 bg-pink-800 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-pink-700 rounded-lg font-extrabold grid place-items-center"
 				>F</button
 			>
 			<button
 				on:click={toggleSaturday}
-				class="w-10 h-10 mx-auto my-2 bg-red-800 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-red-700 rounded-lg font-extrabold grid place-items-center"
 				>S</button
 			>
 			<button
 				on:click={toggleSunday}
-				class="w-10 h-10 mx-auto my-2 bg-orange-800 rounded-lg font-extrabold grid place-items-center"
+				class="w-10 h-10 mx-auto my-2 bg-orange-700 rounded-lg font-extrabold grid place-items-center"
 				>S</button
 			>
 
 			<button
-				on:click={toggleAddTask}
-				class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]"
-				>Add</button
+				on:click={toggleAllTask}
+				class="w-10 h-10 mx-auto my-2 bg-[#b08545] rounded-lg grid place-items-center text-[12px]"
+				>All</button
 			>
 		</div>
 
