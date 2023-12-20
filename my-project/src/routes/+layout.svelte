@@ -9,6 +9,15 @@
 		return daysList[currentDateTime.getDay()];
 	}
 
+	//styles
+	const headerStyle = 'text-3xl font-mono font-extrabold'
+	const toggleButtonStyle = 'w-10 h-10 mx-auto my-2 rounded-lg grid place-items-center'
+	const toggleButtonStyleLetter = toggleButtonStyle + ' font-extrabold'
+	const toggleButtonStyleText = toggleButtonStyle + ' text-[12px]'
+	const getAddColor = 'bg-stone-600';
+	const getWeekColor = 'bg-[#B08545]';
+	//
+
 	function getWeekDayColor() {
 		let daysList = [
 			'bg-orange-700',
@@ -63,9 +72,9 @@
 <div class="w-screen max-w-md mx-auto min-h-screen bg-black text-sm">
 	<!--Header -->
 	<div class="w-full h-14 grid grid-cols-4 place-items-center bg-[#380C47] text-[#130418]">
-		<div class="col-span-1 text-3xl font-mono font-extrabold"></div>
-		<h1 class="col-span-2 text-3xl font-mono font-extrabold">Lonely</h1>
-		<h1 class="col-span-1 text-3xl font-mono font-extrabold">{allPoints}</h1>
+		<div class="col-span-1 {headerStyle}"></div>
+		<h1 class="col-span-2 {headerStyle}">Lonely</h1>
+		<h1 class="col-span-1 {headerStyle}">{allPoints}</h1>
 	</div>
 
 	<!--Content-->
@@ -74,59 +83,59 @@
 		<div class="basis-[60px] w-[60px] min-h-screen bg-[#130418] pt-1 font-mono text-white">
 			<button
 				on:click={toggleToday}
-				class="w-10 h-10 mx-auto my-2 {getWeekDayColor()} rounded-lg grid place-items-center text-[12px]"
+				class="{toggleButtonStyleText} {getWeekDayColor()}"
 				>Today</button
 			>
 			<button
 				on:click={toggleWeek}
-				class="w-10 h-10 mx-auto my-2 bg-[#B08545] rounded-lg grid place-items-center text-[12px]"
+				class="{toggleButtonStyleText} {getWeekColor}"
 				>Week</button
 			>
 			<button
 				on:click={toggleMonday}
-				class="w-10 h-10 mx-auto my-2 bg-teal-700 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-teal-700"
 				>M</button
 			>
 			<button
 				on:click={toggleTuesday}
-				class="w-10 h-10 mx-auto my-2 bg-sky-700 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-sky-700"
 				>T</button
 			>
 			<button
 				on:click={toggleWednesday}
-				class="w-10 h-10 mx-auto my-2 bg-indigo-700 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-indigo-700"
 				>W</button
 			>
 			<button
 				on:click={toggleThursday}
-				class="w-10 h-10 mx-auto my-2 bg-purple-600 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-purple-600"
 				>T</button
 			>
 			<button
 				on:click={toggleFriday}
-				class="w-10 h-10 mx-auto my-2 bg-pink-700 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-pink-700"
 				>F</button
 			>
 			<button
 				on:click={toggleSaturday}
-				class="w-10 h-10 mx-auto my-2 bg-red-700 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-red-700"
 				>S</button
 			>
 			<button
 				on:click={toggleSunday}
-				class="w-10 h-10 mx-auto my-2 bg-orange-700 rounded-lg font-extrabold grid place-items-center"
+				class="{toggleButtonStyleLetter} bg-orange-700"
 				>S</button
 			>
 
 			<button
 				on:click={toggleAllTask}
-				class="w-10 h-10 mx-auto my-2 bg-[#b08545] rounded-lg grid place-items-center text-[12px]"
+				class="{toggleButtonStyleText} {getAddColor}"
 				>All</button
 			>
 		</div>
 
 		<!--Lists-->
-		<div class="basis-10/12 mx-auto">
+		<div class="basis-10/12 mx-auto ">
 			<slot />
 		</div>
 	</div>

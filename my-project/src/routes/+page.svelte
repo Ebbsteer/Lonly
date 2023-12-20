@@ -4,10 +4,17 @@
 	const toggleAddTask = () => {
 		const AddTask = document.getElementById('AddTask');
 		const HiddenAllTask = document.getElementById('AllTask');
-		if (!HiddenAllTask.classList.contains('hidden')){
+		if (!HiddenAllTask.classList.contains('hidden')) {
 			AddTask.classList.toggle('hidden');
-		};
-		
+		}
+	};
+
+	const toggleEditTask = () => {
+		const EditTask = document.getElementById('EditTask');
+		const HiddenAllTask = document.getElementById('AllTask');
+		if (!HiddenAllTask.classList.contains('hidden')) {
+			EditTask.classList.toggle('hidden');
+		}
 	};
 
 	let allPoints = 1;
@@ -56,16 +63,17 @@
 				return 'text-[#B08545]';
 		}
 	}
-
-	
 </script>
 
 <div class="text-white font-mono font-normal">
 	<div id="AllTask" class="grid gap-2 p-4">
-		<div class="grid grid-cols-4 {getAddColor} rounded-lg p-2 w-full text-center">
-			<button on:click={toggleAddTask} class="col-span-1 text-left text-xs">Add</button>
+		<div class="flex justify-between {getAddColor} rounded-lg p-2 w-full text-center">
+			<button
+				on:click={toggleAddTask}
+				class="text-[10px] shadow-sm shadow-stone-800 rounded px-2 h-fit">Add</button
+			>
 			<span class="col-span-2">All Tasks</span>
-			<button class="col-span-1 text-right text-xs">Edit</button>
+			<button class="text-[10px] shadow-sm shadow-stone-800 rounded px-2 h-fit">Edit</button>
 		</div>
 
 		<div id="AddTask" class="{getAddColor} hidden rounded-lg p-[4px]">
@@ -84,7 +92,13 @@
 									{
 										task: 'Task Name1',
 										points: 10,
-										completed: false
+										mon: true,
+										tue: false,
+										wed: true,
+										thu: true,
+										fri: true,
+										sat: true,
+										sun: true
 									},
 									{
 										task: 'Task Name2',
@@ -98,7 +112,7 @@
 						event.currentTarget.reset();
 					}}
 				>
-					<div class="{getAddColor} rounded-lg p-[6px] grid grid-cols-7 text-center text-[10px]">
+					<div class="{getAddColor} rounded-lg p-[6px] grid grid-cols-7 text-[10px]">
 						<input
 							type="text"
 							name="task"
@@ -110,36 +124,36 @@
 							type="number"
 							name="points"
 							id="points"
-							placeholder="'20'"
+							placeholder="'20p'"
 							class="col-span-2 bg-transparent px-1 text-center text-xs"
 						/>
 
-						{#each ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as day} 
-								<label for={day.toLowerCase()} class="grid grid-cols-1 place-items-center py-1">
-									<span class="">{day}</span>
-									<input
-										type="checkbox"
-										name={day.toLowerCase()}
-										id={day.toLowerCase()}
-										class="peer relative appearance-none w-[16px] h-[16px] border rounded border-white border-opacity-70 transition-all checked:bg-white checked:bg-opacity-20 checked:border-white checked:border-opacity-50"
-									/>
-									<span
-										class="grid place-content-center mt-[-16px] z-10 text-white transition-opacity opacity-0 peer-checked:opacity-100"
+						{#each ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as day}
+							<label for={day.toLowerCase()} class="grid grid-cols-1 place-items-center py-1">
+								<span class="">{day}</span>
+								<input
+									type="checkbox"
+									name={day.toLowerCase()}
+									id={day.toLowerCase()}
+									class="peer relative appearance-none w-[16px] h-[16px] border rounded border-white border-opacity-70 transition-all checked:bg-white checked:bg-opacity-20 checked:border-white checked:border-opacity-50"
+								/>
+								<span
+									class="grid place-content-center mt-[-16px] z-10 text-white transition-opacity opacity-0 peer-checked:opacity-100"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-3 h-3"
+										viewBox="0 0 20 20"
+										fill="currentColor"
 									>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="w-3 h-3"
-											viewBox="0 0 20 20"
-											fill="currentColor"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-									</span>
-								</label>
+										<path
+											fill-rule="evenodd"
+											d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+								</span>
+							</label>
 						{/each}
 					</div>
 
@@ -155,17 +169,62 @@
 				</form>
 			</div>
 		</div>
+
+		<div class="{getAddColor} rounded-lg p-[4px]">
+			<div class="bg-black rounded-md p-[6px] grid gap-2">
+				{#each $tasks['allTasks'] as task}
+					<div class="{getAddColor} rounded-lg p-[6px] grid grid-cols-7 text-center">
+						<span class="text-white col-span-6 text-left pl-[2%]">{task.task}</span>
+						<span class="text-white col-span-1 grid place-items-center pr-[5%]">{task.points}p</span
+						>
+
+						{#each ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as day}
+							<label
+								for={day.toLowerCase()}
+								class="grid grid-cols-1 place-items-center pb-1 text-[10px]"
+							>
+								<span class="">{day}</span>
+								<input
+									checked={$tasks['allTasks'][1][day.toLowerCase()]}
+									type="checkbox"
+									name={day.toLowerCase()}
+									id={day.toLowerCase()}
+									class="peer relative z-10 appearance-none w-[16px] h-[16px] border rounded border-white border-opacity-70 transition-all checked:bg-white checked:bg-opacity-20 checked:border-white checked:border-opacity-50"
+								/>
+								<span
+									class="grid place-content-center mt-[-16px] text-white transition-opacity opacity-0 peer-checked:opacity-100"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-3 h-3"
+										viewBox="0 0 20 20"
+										fill="currentColor"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+								</span>
+							</label>
+						{/each}
+						<label for=""></label>
+					</div>
+				{/each}
+			</div>
+		</div>
 	</div>
 
 	<div id="Week" class="grid gap-2 p-4">
-		<div class="bg-[#B08545] rounded-lg p-2 w-full text-center">Weekly Tasks</div>
+		<div class="{getWeekColor} rounded-lg p-2 w-full text-center">Weekly Tasks</div>
 
-		<div class="bg-[#B08545] rounded-lg p-[4px]">
+		<div class="{getWeekColor} rounded-lg p-[4px]">
 			<div class="bg-black rounded-md p-[6px] grid gap-2">
-				<div class="bg-[#B08545] rounded-lg p-[6px]">
+				<div class="{getWeekColor} rounded-lg p-[6px]">
 					<p class="text-white">Task Name</p>
 				</div>
-				<div class="bg-[#B08545] rounded-lg p-[6px]">
+				<div class="{getWeekColor} rounded-lg p-[6px]">
 					<p class="text-white">Task Name</p>
 				</div>
 			</div>
@@ -211,7 +270,7 @@
 								</span>
 							</label>
 							<span class="text-white col-span-6">{task.task}</span>
-							<span class="text-white col-span-1 grid place-items-center">{task.points}</span>
+							<span class="text-white col-span-1 grid place-items-center">{task.points}p</span>
 						</div>
 					{/each}
 				</div>
